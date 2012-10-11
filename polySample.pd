@@ -1,0 +1,61 @@
+#N canvas 306 22 929 820 10;
+#X obj 117 761 dac~;
+#X obj 117 719 catch~ out;
+#X obj 118 358 random 10;
+#X obj 118 314 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 118 334 metro 300;
+#X msg 691 157 \; pd dsp 1 \;;
+#X obj 691 128 loadbang;
+#X text 210 348 create random pitch for triggering;
+#X obj 118 293 loadbang;
+#X text 114 74 (c) GPL3 stc@binaura.net \, 2012;
+#X text 537 496 <- create polyphonic sample player;
+#X floatatom 118 443 5 0 0 0 - - -;
+#X obj 118 378 / 10;
+#X text 165 442 pitch (1 = original);
+#X text 558 514 first argument: < name of soundfile >;
+#X text 559 529 second argument: < number of polyphony >;
+#X text 687 202 turn on dsp;
+#X text 204 720 output of the objects can be catched;
+#X text 205 735 with the name "out";
+#X text 116 244 Built with Pd Vanilla \, can be embedded into libPd
+\, WebPd \, etc.;
+#X text 405 18 --- POLYSAMPLE ---;
+#X text 116 104 The system creates multiple instances of sample players
+on creation of the [createPoly] object (name of sound file is set by
+its first argument \, whereas number of parallell sounds are based
+on its second argument). Beware: too much objects can take too much
+performance especially on mobile devices & tablets.;
+#X floatatom 503 472 5 0 0 0 - - -;
+#X text 545 472 volume;
+#X obj 118 568 pipe 200;
+#X text 511 634 <- try with another soundfile..;
+#X floatatom 493 601 5 0 0 0 - - -;
+#X text 535 601 volume;
+#X text 118 60 A Polyphonic sample player with adjustable pitch & volume.
+;
+#X text 117 187 Sample playback speed is controlled by the first inlet
+;
+#X text 114 201 (1 = original speed \, 2 = double speed \, etc.);
+#X text 116 220 Sample playback volume is controlled via its second
+inlet;
+#X obj 219 495 patches/createPoly ../sounds/sound.wav 10;
+#X text 534 657 3rd argument sets samplerate (optional);
+#X text 533 678 (44100 by default);
+#X text 558 545 optional third argument: < samplerate >;
+#X obj 118 632 patches/createPoly ../sounds/soundToo_low.wav 10 22050
+;
+#X connect 1 0 0 0;
+#X connect 1 0 0 1;
+#X connect 2 0 12 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;
+#X connect 6 0 5 0;
+#X connect 8 0 3 0;
+#X connect 11 0 24 0;
+#X connect 11 0 32 0;
+#X connect 12 0 11 0;
+#X connect 22 0 32 1;
+#X connect 24 0 36 0;
+#X connect 26 0 36 1;

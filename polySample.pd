@@ -1,61 +1,85 @@
-#N canvas 306 22 929 820 10;
-#X obj 117 761 dac~;
-#X obj 117 719 catch~ out;
-#X obj 118 358 random 10;
-#X obj 118 314 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#N canvas 105 22 1090 798 10;
+#X obj 636 376 dac~;
+#X obj 636 334 catch~ out;
+#X obj 117 426 random 10;
+#X obj 117 358 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 118 334 metro 300;
-#X msg 691 157 \; pd dsp 1 \;;
-#X obj 691 128 loadbang;
-#X text 210 348 create random pitch for triggering;
-#X obj 118 293 loadbang;
-#X text 114 74 (c) GPL3 stc@binaura.net \, 2012;
-#X text 537 496 <- create polyphonic sample player;
-#X floatatom 118 443 5 0 0 0 - - -;
-#X obj 118 378 / 10;
-#X text 165 442 pitch (1 = original);
-#X text 558 514 first argument: < name of soundfile >;
-#X text 559 529 second argument: < number of polyphony >;
-#X text 687 202 turn on dsp;
-#X text 204 720 output of the objects can be catched;
-#X text 205 735 with the name "out";
-#X text 116 244 Built with Pd Vanilla \, can be embedded into libPd
+#X obj 117 380 metro 300;
+#X msg 634 442 \; pd dsp 1 \;;
+#X obj 634 413 loadbang;
+#X obj 117 337 loadbang;
+#X text 112 109 (c) GPL3 stc@binaura.net \, 2012;
+#X obj 117 467 / 10;
+#X text 113 669 first argument: < name of soundfile >;
+#X text 113 686 second argument: < number of polyphony >;
+#X text 630 487 turn on dsp;
+#X text 722 333 output of the objects can be catched;
+#X text 723 350 with the name "out";
+#X text 114 267 Built with Pd Vanilla \, can be embedded into libPd
 \, WebPd \, etc.;
-#X text 405 18 --- POLYSAMPLE ---;
-#X text 116 104 The system creates multiple instances of sample players
+#X text 493 27 --- POLYSAMPLE ---;
+#X text 113 127 The system creates multiple instances of sample players
 on creation of the [createPoly] object (name of sound file is set by
 its first argument \, whereas number of parallell sounds are based
 on its second argument). Beware: too much objects can take too much
 performance especially on mobile devices & tablets.;
-#X floatatom 503 472 5 0 0 0 - - -;
-#X text 545 472 volume;
-#X obj 118 568 pipe 200;
-#X text 511 634 <- try with another soundfile..;
-#X floatatom 493 601 5 0 0 0 - - -;
-#X text 535 601 volume;
-#X text 118 60 A Polyphonic sample player with adjustable pitch & volume.
+#X floatatom 401 601 5 0 0 0 - - -;
+#X floatatom 924 186 5 0 0 0 - - -;
+#X text 966 186 volume;
+#X text 116 95 A Polyphonic sample player with adjustable pitch & volume.
 ;
-#X text 117 187 Sample playback speed is controlled by the first inlet
+#X text 624 113 3rd argument sets samplerate (optional);
+#X text 623 133 (44100 by default);
+#X text 114 704 optional third argument: < samplerate >;
+#X obj 117 538 pack f f;
+#X obj 117 402 t b b;
+#X text 452 601 overall sampler volume;
+#X obj 188 448 + 1;
+#X text 114 212 Sample playback speed and individual sample volumes
+are controlled by the first inlet via a list. First element: pitch
+(1 = original speed \, 2 = double speed \, etc) Second element: volume
+of each sample to be triggered;
+#X obj 117 447 + 1;
+#X text 262 426 create random pitch \, random volume;
+#N canvas 0 22 722 472 send2OtherSample 0;
+#X obj 217 122 inlet;
+#X obj 442 120 inlet;
+#X obj 315 279 pack f f;
+#X obj 315 303 s otherSample;
+#X obj 442 174 pipe 150;
+#X obj 217 177 pipe 150;
+#X connect 0 0 5 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 4 0 2 1;
+#X connect 5 0 2 0;
+#X restore 202 493 pd send2OtherSample;
+#X obj 628 184 r otherSample;
+#X text 431 631 create polyphonic sample player;
+#X text 624 94 try with any other soundfile \, too..;
+#X obj 117 630 patches/createPoly ../sounds/sound.wav 10;
+#X obj 628 212 patches/createPoly ../sounds/soundToo_low.wav 10 22050
 ;
-#X text 114 201 (1 = original speed \, 2 = double speed \, etc.);
-#X text 116 220 Sample playback volume is controlled via its second
-inlet;
-#X obj 219 495 patches/createPoly ../sounds/sound.wav 10;
-#X text 534 657 3rd argument sets samplerate (optional);
-#X text 533 678 (44100 by default);
-#X text 558 545 optional third argument: < samplerate >;
-#X obj 118 632 patches/createPoly ../sounds/soundToo_low.wav 10 22050
-;
+#X obj 188 469 / 30;
+#X obj 188 426 random 30;
+#X text 187 539 trigger sample 1st el: pitch \, 2nd el: vol;
 #X connect 1 0 0 0;
 #X connect 1 0 0 1;
-#X connect 2 0 12 0;
+#X connect 2 0 30 0;
 #X connect 3 0 4 0;
-#X connect 4 0 2 0;
+#X connect 4 0 26 0;
 #X connect 6 0 5 0;
-#X connect 8 0 3 0;
-#X connect 11 0 24 0;
-#X connect 11 0 32 0;
-#X connect 12 0 11 0;
-#X connect 22 0 32 1;
-#X connect 24 0 36 0;
-#X connect 26 0 36 1;
+#X connect 7 0 3 0;
+#X connect 9 0 25 0;
+#X connect 9 0 32 0;
+#X connect 18 0 36 1;
+#X connect 19 0 37 1;
+#X connect 25 0 36 0;
+#X connect 26 0 2 0;
+#X connect 26 1 39 0;
+#X connect 28 0 38 0;
+#X connect 30 0 9 0;
+#X connect 33 0 37 0;
+#X connect 38 0 25 1;
+#X connect 38 0 32 1;
+#X connect 39 0 28 0;

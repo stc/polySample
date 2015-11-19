@@ -1,6 +1,12 @@
+# DEPRECATED
+
+PlySample is now part of SodaLib sonification library that will be available on GitHub soon. Please keep in mind: this repo stays online, but further improvements & developments can be accessed in SodaLib. It is recommended to clone these tools from there.
+
+
+# Info
 
 A Polyphonic sample player with adjustable pitch & volume.
-(c) GPL3 stc@binaura.net, 2012
+(c) GPL3 stc@binaura.net, 2012 - 2015
 
 The system creates multiple instances of sample players on creation of the [createPoly] object (name of sound file is set by its first argument, whereas number of parallell sounds are based on its second argument). There is an optional 3rd argument for setting the samplerate. This can be useful when working with tablets or phones where lower sampling rates are recommended considered to performance issues. 
 

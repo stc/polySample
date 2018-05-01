@@ -1,8 +1,3 @@
-# DEPRECATED
-
-PlySample is now part of SodaLib sonification library that will be available on GitHub soon. Please keep in mind: this repo stays online, but further improvements & developments can be accessed in SodaLib. It is recommended to clone these tools from there.
-
-
 # Info
 
 A Polyphonic sample player with adjustable pitch & volume.
